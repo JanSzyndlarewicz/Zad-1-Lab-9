@@ -14,7 +14,7 @@ public class Sklep {
     static int ileKartKlienta = 0;
 
 
-
+/*
     public static KartaKlienta initialisation(KartaKlienta[] u){
         Random random = new Random();
         int card = random.nextInt(3)+1;
@@ -64,10 +64,35 @@ public class Sklep {
 
         return tmp;
     }
-
+*/
     public static void initialisationArray(KartaKlienta[] u, int n){
-        for(int i=0; i<n; i++){
-            u[ileKartKlienta] = initialisation(u);
+        for(int j=0; j<n; j++){
+            Random random = new Random();
+            int wchichCard = random.nextInt(3)+1;
+            int numer;
+            String nazwisko;
+            KartaKlienta tmp = null;
+            boolean sole = true;
+
+            do{
+                numer = random.nextInt(1000000);
+                int i = 0;
+
+                do{
+                    if(u[i]!=null){
+                        if(u[i].getNumer() == numer){
+                            sole = false;
+                        }
+                    }
+                    i++;
+
+                }while(i<ileTransakcji && sole);
+
+            }while(!sole);
+
+            nazwisko = String.valueOf(numer);
+
+            u[ileKartKlienta] = choseninitialisation(u, wchichCard, numer, nazwisko);
             ileKartKlienta++;
         }
 
@@ -111,19 +136,16 @@ public class Sklep {
         switch (wchichCard){
             case 1:{
                 tmp = new KartaPodstawowa(numer, nazwisko);
-                ileKartKlienta++;
                 break;
             }
 
             case 2:{
                 tmp = new KartaStudenta(numer, nazwisko);
-                ileKartKlienta++;
                 break;
             }
 
             case 3:{
                 tmp = new KartaSeniora(numer, nazwisko);
-                ileKartKlienta++;
                 break;
             }
 
@@ -170,6 +192,9 @@ public class Sklep {
         KartaKlienta[] u = new KartaKlienta[200];
         initialisationArray(u, 100);
 
+        for(int i=0; i<100; i++){
+            System.out.println(u[i]);
+        }
 
         //Add One Transaction
         boolean ifExist;
@@ -202,7 +227,7 @@ public class Sklep {
 
 
             String nazwisko = reader.readLine();
-            
+
             boolean sole = true;
             int numer;
 
