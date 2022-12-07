@@ -111,9 +111,7 @@ public class Sklep {
 
         t[ileTransakcji] = new Transakcja( kwota, u);
         ileTransakcji++;
-
-
-
+        Transakcja.numerTransakcji++;
     }
 
     public static KartaKlienta cardToAddTransaction(KartaKlienta[] u) throws IOException {
@@ -199,15 +197,26 @@ public class Sklep {
         return u[tmp];
     }
 
+    public static void menu(){
+        System.out.println('\n');
+        System.out.println("-----Menu-----");
+        System.out.println("0 - Zakończenie działania");
+        System.out.println("1 - Dodanie jednej transakcji");
+        System.out.println("2 - Dodanie wielu transakcji");
+        System.out.println("3 - Wyświetlenie wszystkich transakcji");
+        System.out.println("4 - Policzenie transakcji z kartą seniora");
+        System.out.println("5 - Znaleznie osoby z kartą student, która zapłaciła najwięcej");
+    }
+
+
 
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
-        Random random = new Random();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Transakcja[] t = new Transakcja[100];
         KartaKlienta[] u = new KartaKlienta[200];
 
         initialisationArray(u, 100);
+
         for (int i=0; i<100; i++){
             System.out.println(u[i]);
         }
@@ -215,14 +224,8 @@ public class Sklep {
         int choice;
 
         do{
-            System.out.println('\n');
-            System.out.println("-----Menu-----");
-            System.out.println("0 - Zakończenie działania");
-            System.out.println("1 - Dodanie jednej transakcji");
-            System.out.println("2 - Dodanie wielu transakcji");
-            System.out.println("3 - Wyświetlenie wszystkich transakcji");
-            System.out.println("4 - Policzenie transakcji z kartą seniora");
-            System.out.println("5 - Znaleznie osoby z kartą student, która zapłaciła najwięcej");
+
+            menu();
 
             choice = scan.nextInt();
 
@@ -301,14 +304,7 @@ public class Sklep {
                     System.out.println(t[indexMax]);
                     break;
                 }
-
             }
         }while (choice!=0);
-
-
-
-
-
-
     }
 }

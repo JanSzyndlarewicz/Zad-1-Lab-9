@@ -1,7 +1,7 @@
 import Karty.KartaKlienta;
 
 public class Transakcja {
-    private static int numerTransakcji = 0;
+    public static int numerTransakcji = 0;
     private double kwota;
     private KartaKlienta karta;
 
@@ -48,7 +48,6 @@ public class Transakcja {
         return "Transakcja{" +
                 "kwota=" + kwota +
                 ", karta=" + karta +
-                ", numer transakcji=" + numerTransakcji +
                 '}';
     }
 }
