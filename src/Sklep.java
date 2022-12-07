@@ -186,7 +186,7 @@ public class Sklep {
             }while(i<ileKartKlienta && !ifExist);
 
             if(ifExist){
-                tmp = i;
+                tmp = i-1;
             }
             else {
                 tmp = ileKartKlienta+1;
@@ -209,9 +209,11 @@ public class Sklep {
             System.out.println(u[i]);
         }
 
-        System.out.println(cardToAddTransaction(u));
+        //System.out.println(cardToAddTransaction(u));
+        double kwota = 205.66;
 
-
+        addOneTransaction(t, kwota, cardToAddTransaction(u));
+        System.out.println(t[0]);
         //Add One Transaction
  /*       boolean ifExist;
         int wchichCard;
