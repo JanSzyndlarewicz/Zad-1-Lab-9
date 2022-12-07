@@ -108,8 +108,10 @@ public class Sklep {
     }
 
     public static void addOneTransaction(Transakcja[] t, double kwota, KartaKlienta u){
+
         t[ileTransakcji] = new Transakcja( kwota, u);
         ileTransakcji++;
+
 
 
     }
@@ -189,6 +191,7 @@ public class Sklep {
                 tmp = i-1;
             }
             else {
+                System.out.println("Brak podanej karty");
                 tmp = ileKartKlienta+1;
             }
         }
@@ -209,88 +212,101 @@ public class Sklep {
             System.out.println(u[i]);
         }
 
-        //System.out.println(cardToAddTransaction(u));
-        double kwota = 205.66;
-
-        addOneTransaction(t, kwota, cardToAddTransaction(u));
-        System.out.println(t[0]);
-        //Add One Transaction
- /*       boolean ifExist;
-        int wchichCard;
-        int tmp;
+        int choice;
 
         do{
-            System.out.println("Czy masz już kartę?");
-            System.out.println("1 - Tak");
-            System.out.println("2 - Nie");
-            tmp = scan.nextInt();
-        }while(tmp<1 || tmp>2);
+            System.out.println('\n');
+            System.out.println("-----Menu-----");
+            System.out.println("0 - Zakończenie działania");
+            System.out.println("1 - Dodanie jednej transakcji");
+            System.out.println("2 - Dodanie wielu transakcji");
+            System.out.println("3 - Wyświetlenie wszystkich transakcji");
+            System.out.println("4 - Policzenie transakcji z kartą seniora");
+            System.out.println("5 - Znaleznie osoby z kartą student, która zapłaciła najwięcej");
 
-        if(tmp == 1){
-            ifExist = true;
-        }
-        else{
-            ifExist = false;
-        }
+            choice = scan.nextInt();
 
-        if(!ifExist){
-            do{
-                System.out.println("1 - Karta podstawowa");
-                System.out.println("2 - Karta studenta");
-                System.out.println("3 - Karta seniora");
-                wchichCard = scan.nextInt();
-            }while(wchichCard<1 || wchichCard>3);
+            switch (choice){
+                case 0:{
+                    System.out.println("Do zobaczenia");
+                    break;
+                }
+                case 1:{
+                    System.out.print("-----Dodanie nowej transakcji----- '\n");
+                    System.out.print("Podaj kwotę transakcji: ");
 
-            System.out.println("Podaj nazwisko");
+                    double kwota = scan.nextDouble();
 
+                    addOneTransaction(t, kwota, cardToAddTransaction(u));
 
-            String nazwisko = reader.readLine();
+                    break;
+                }
 
-            boolean sole = true;
-            int numer;
+                case 2: {
+                    System.out.print("-----Dodanie wielu transakcji----- '\n");
+                    System.out.print("Podaj ilość transakcji, które chcesz wpisać: ");
+                    int n;
+                    double kwota;
 
-            do{
-                numer = random.nextInt(1000000);
-                int i = 0;
+                    do{
+                        n = scan.nextInt();
+                    }while(n<1 || n>t.length-ileTransakcji);
 
-                do{
-                    if(u[i]!=null){
-                        if(u[i].getNumer() == numer){
-                            sole = false;
+                    for(int i=0; i<n; i++){
+                        System.out.print("Podaj kwotę transakcji nr " + (i+1) + ": ");
+                        kwota = scan.nextDouble();
+                        addOneTransaction(t, kwota, cardToAddTransaction(u));
+                    }
+                    break;
+                }
+
+                case 3:{
+                    System.out.print("-----Wyświetlenie wszystkich transakcji----- '\n");
+
+                    for(int i=0; i<ileTransakcji; i++){
+                        System.out.println(t[i]);
+                    }
+                    break;
+                }
+
+                case 4:{
+                    System.out.println("-----Policzenie transakcji z kartą seniora-----");
+                    int count = 0;
+
+                    for(int i=0; i<ileTransakcji; i++){
+                        if(t[i].getKarta() instanceof KartaSeniora){
+                            count++;
                         }
                     }
-                    i++;
 
-                }while(i<ileTransakcji && sole);
+                    System.out.println("Ilość transakcji z kartą seniora: " + count);
+                    break;
+                }
 
-            }while(!sole);
+                case 5:{
+                    int indexMax = -1;
+                    do{
+                        indexMax++;
+                    }while (!(t[indexMax].getKarta() instanceof KartaStudenta));
 
-            tmp = ileKartKlienta;
-            u[tmp] = choseninitialisation(u, wchichCard, numer, nazwisko);
-            System.out.println(u[tmp]);
-            ileKartKlienta++;
-        }
-        else{
-            int i=0;
-            System.out.println("Podaj numer karty");
-            int cardNumber = scan.nextInt();
-            tmp = ileKartKlienta;
-            u[tmp] = choseninitialisation(u, 2, cardNumber, "fasfa");
-            ileKartKlienta++;
+                    for(int i=0; i<ileTransakcji; i++){
+                        if(t[i].getKarta() instanceof KartaStudenta){
+                            if(t[i].kwotaDoZaplaty()>t[indexMax].kwotaDoZaplaty()){
+                                indexMax = i;
+                            }
+                        }
+                    }
 
-            System.out.println(u[tmp]);
-        }
+                    System.out.println("Danie klienta który zapłacił najwięcej: ");
+                    System.out.println(t[indexMax]);
+                    break;
+                }
 
-*/
-
-
-
-
-
+            }
+        }while (choice!=0);
 
 
 
-//addOneTransaction(t, 200, card, cardNumber, ifExist);
 
 
 

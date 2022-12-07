@@ -48,6 +48,7 @@ public class Transakcja {
         return "Transakcja{" +
                 "kwota=" + kwota +
                 ", karta=" + karta +
+                ", numer transakcji=" + numerTransakcji +
                 '}';
     }
 }
