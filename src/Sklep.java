@@ -13,58 +13,6 @@ public class Sklep {
     static int ileTransakcji = 0;
     static int ileKartKlienta = 0;
 
-
-/*
-    public static KartaKlienta initialisation(KartaKlienta[] u){
-        Random random = new Random();
-        int card = random.nextInt(3)+1;
-        int numer;
-        String nazwisko;
-        KartaKlienta tmp = null;
-        boolean sole = true;
-
-        do{
-            numer = random.nextInt(1000000);
-            int i = 0;
-
-            do{
-                if(u[i]!=null){
-                    if(u[i].getNumer() == numer){
-                        sole = false;
-                    }
-                }
-                i++;
-
-            }while(i<ileTransakcji && sole);
-
-        }while(!sole);
-
-        nazwisko = String.valueOf(numer);
-
-        switch (card){
-            case 1:{
-                tmp = new KartaPodstawowa(numer, nazwisko);
-                break;
-            }
-
-            case 2:{
-                tmp = new KartaStudenta(numer, nazwisko);
-                break;
-            }
-
-            case 3:{
-                tmp = new KartaSeniora(numer, nazwisko);
-                break;
-            }
-
-            default:{
-                break;
-            }
-        }
-
-        return tmp;
-    }
-*/
     public static void initialisationArray(KartaKlienta[] u, int n){
         for(int j=0; j<n; j++){
             Random random = new Random();
@@ -104,6 +52,7 @@ public class Sklep {
         boolean sole = true;
         int i=0;
 
+        //czy istnieje podany numer
         do{
             if(u[i]!=null){
                 if(u[i].getNumer() == numer){
@@ -113,6 +62,7 @@ public class Sklep {
             i++;
 
         }while(i<ileTransakcji && sole);
+
 
         if(!sole){
             do{
@@ -157,30 +107,93 @@ public class Sklep {
         return tmp;
     }
 
-    public static void addOneTransaction(Transakcja[] t, double kwota, int cardNumber, int card, boolean ifExist){
-        switch (card){
-            case 1:{
-                if(ifExist){
-                    if(ileTransakcji<t.length){
-                       // t[ileTransakcji]  = new Transakcja(kwota, );
-                        ileTransakcji++;
+    public static void addOneTransaction(Transakcja[] t, double kwota, KartaKlienta u){
+        t[ileTransakcji] = new Transakcja( kwota, u);
+        ileTransakcji++;
+
+
+    }
+
+    public static KartaKlienta cardToAddTransaction(KartaKlienta[] u) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        Random random = new Random();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        boolean ifExist;
+        int wchichCard;
+        int tmp;
+
+        do{
+            System.out.println("Czy masz już kartę?");
+            System.out.println("1 - Tak");
+            System.out.println("2 - Nie");
+            tmp = scan.nextInt();
+        }while(tmp<1 || tmp>2);
+
+        if(tmp == 1){
+            ifExist = true;
+        }
+        else{
+            ifExist = false;
+        }
+
+        if(!ifExist){
+            do{
+                System.out.println("1 - Karta podstawowa");
+                System.out.println("2 - Karta studenta");
+                System.out.println("3 - Karta seniora");
+                wchichCard = scan.nextInt();
+            }while(wchichCard<1 || wchichCard>3);
+
+            System.out.println("Podaj nazwisko");
+
+
+            String nazwisko = reader.readLine();
+
+            boolean sole = true;
+            int numer;
+
+            do{
+                numer = random.nextInt(1000000);
+                int i = 0;
+
+                do{
+                    if(u[i]!=null){
+                        if(u[i].getNumer() == numer){
+                            sole = false;
+                        }
                     }
+                    i++;
+
+                }while(i<ileTransakcji && sole);
+
+            }while(!sole);
+
+            tmp = ileKartKlienta;
+            u[tmp] = choseninitialisation(u, wchichCard, numer, nazwisko);
+            ileKartKlienta++;
+        }
+        else{
+            int i=0;
+            System.out.println("Podaj numer karty");
+            int cardNumber = scan.nextInt();
+            ifExist = false;
+            do{
+                if(u[i].getNumer() == cardNumber){
+                    ifExist = true;
                 }
-                break;
+                i++;
+            }while(i<ileKartKlienta && !ifExist);
+
+            if(ifExist){
+                tmp = i;
             }
-
-            case 2:{
-
-                break;
-            }
-
-            case 3:{
-
-                break;
+            else {
+                tmp = ileKartKlienta+1;
             }
         }
 
-
+        return u[tmp];
     }
 
 
@@ -190,14 +203,17 @@ public class Sklep {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Transakcja[] t = new Transakcja[100];
         KartaKlienta[] u = new KartaKlienta[200];
-        initialisationArray(u, 100);
 
-        for(int i=0; i<100; i++){
+        initialisationArray(u, 100);
+        for (int i=0; i<100; i++){
             System.out.println(u[i]);
         }
 
+        System.out.println(cardToAddTransaction(u));
+
+
         //Add One Transaction
-        boolean ifExist;
+ /*       boolean ifExist;
         int wchichCard;
         int tmp;
 
@@ -263,7 +279,7 @@ public class Sklep {
             System.out.println(u[tmp]);
         }
 
-
+*/
 
 
 
