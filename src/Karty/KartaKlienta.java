@@ -1,3 +1,5 @@
+package Karty;
+
 public abstract class KartaKlienta {
     private int numer;
     private String nazwisko;
@@ -32,7 +34,7 @@ public abstract class KartaKlienta {
 
     @Override
     public String toString() {
-        return "KartaKlienta{" +
+        return "Karty.KartaKlienta{" +
                 "numer=" + numer +
                 ", nazwisko='" + nazwisko + '\'' +
                 '}';
