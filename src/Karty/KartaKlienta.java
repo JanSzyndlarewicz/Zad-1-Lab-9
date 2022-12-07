@@ -36,7 +36,7 @@ public abstract class KartaKlienta {
     public String toString() {
         return "Karty.KartaKlienta{" +
                 "numer=" + numer +
-                ", nazwisko='" + nazwisko + '\'' +
+                ", nazwisko=" + nazwisko + '\'' +
                 '}';
     }
 }

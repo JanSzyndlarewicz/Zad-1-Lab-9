@@ -40,7 +40,7 @@ public class Transakcja {
     }
 
     public double kwotaDoZaplaty(){
-        return kwota * (double)((100 - karta.rabat())/100);
+        return kwota * ((double)(100 - karta.rabat())/100);
     }
 
     @Override
