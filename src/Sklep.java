@@ -3,9 +3,7 @@ import Karty.KartaPodstawowa;
 import Karty.KartaSeniora;
 import Karty.KartaStudenta;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -197,6 +195,31 @@ public class Sklep {
         return u[tmp];
     }
 
+    public static void writeToFile(Transakcja[] t) throws IOException {
+        FileWriter fw = new FileWriter("KartaStudenta.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        int i=0;
+
+        do{
+            if(t[i].getKarta() instanceof KartaStudenta){
+                try {
+
+                    bw.write(t[i].toString());
+                    bw.newLine();
+
+                } catch (IOException e) {
+
+                    System.out.println("Błąd wejścia-wyjścia: " + e.getMessage());
+
+                }
+            }
+            i++;
+        }while(t[i]!=null && i<t.length);
+
+        bw.close();
+    }
+
     public static void menu(){
         System.out.println('\n');
         System.out.println("-----Menu-----");
@@ -206,6 +229,7 @@ public class Sklep {
         System.out.println("3 - Wyświetlenie wszystkich transakcji");
         System.out.println("4 - Policzenie transakcji z kartą seniora");
         System.out.println("5 - Znaleznie osoby z kartą student, która zapłaciła najwięcej");
+        System.out.println("6 - wpisz transakcje za pomocą karty studenta do pliku");
     }
 
 
@@ -302,6 +326,11 @@ public class Sklep {
 
                     System.out.println("Danie klienta który zapłacił najwięcej: ");
                     System.out.println(t[indexMax]);
+                    break;
+                }
+
+                case 6:{
+                    writeToFile(t);
                     break;
                 }
             }
