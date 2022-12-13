@@ -1,16 +1,19 @@
 import Karty.KartaKlienta;
+import Karty.KartaPodstawowa;
 
 public class Transakcja {
-    public static int numerTransakcji = 0;
+    private static int numerTransakcji = 0;
     private double kwota;
     private KartaKlienta karta;
 
     public Transakcja(){
+        numerTransakcji++;
         kwota = 0;
-        karta = null;
+        karta = new KartaPodstawowa();
     }
 
     public Transakcja(double kwota, KartaKlienta karta) {
+        numerTransakcji++;
         this.kwota = kwota;
         this.karta = karta;
     }

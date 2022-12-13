@@ -109,7 +109,6 @@ public class Sklep {
 
         t[ileTransakcji] = new Transakcja( kwota, u);
         ileTransakcji++;
-        Transakcja.numerTransakcji++;
     }
 
     public static KartaKlienta cardToAddTransaction(KartaKlienta[] u) throws IOException {
@@ -245,6 +244,13 @@ public class Sklep {
             System.out.println(u[i]);
         }
 
+        t[0] = new Transakcja();
+        t[1] =new Transakcja(312, new KartaSeniora());
+        t[2] = new Transakcja(111, new KartaStudenta());
+        t[3] = new Transakcja(999, new KartaPodstawowa());
+        ileTransakcji+=4;
+
+
         int choice;
 
         do{
@@ -335,5 +341,7 @@ public class Sklep {
                 }
             }
         }while (choice!=0);
+        System.out.println(Transakcja.getNumerTransakcji());
+
     }
 }

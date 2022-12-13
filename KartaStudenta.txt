@@ -1,0 +1,1 @@
+Transakcja{kwota=111.0, karta=Karty.KartaKlienta{numer=0, nazwisko=null'}}
